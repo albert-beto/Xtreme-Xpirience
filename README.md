@@ -1,51 +1,47 @@
-===== README - Firmware Masinuta RC =====
+# RC Car Firmware
 
-Acest cod controleaza o masinuta RC folosind placa ATmega328P Xplained Mini, un receptor RC si driverul de motoare TB6612FNG.
+Firmware pentru o mașinuță RC controlată cu o placă **ATmega328P Xplained Mini**, un receptor RC și un driver de motoare **TB6612FNG**.
 
-Programul citeste doua semnale de la receptor:
+## Descriere
 
-  * CH1 - directie
-  * CH2 - acceleratie / mers inainte si inapoi
+Programul citește semnalele PWM primite de la receptorul RC și controlează separat cele două motoare ale mașinuței.  
+Canalul `CH1` este folosit pentru direcție, iar `CH2` pentru accelerație și mers înainte/înapoi.
 
-Pe baza acestor semnale, microcontrollerul controleaza separat cele doua motoare ale masinutei.
+Controlul motoarelor este realizat prin driverul TB6612FNG, folosind pini digitali pentru sens și semnale PWM pentru viteză.
 
-==== Pini folositi ====
+## Pini folosiți
 
-^ Semnal ^ Pin ATmega328P ^ Rol ^
-| CH1 | PD2 | Directie |
-| CH2 | PD4 | Acceleratie |
-| PWMA | PD3 | PWM motor stang |
-| AIN1 | PD5 | Sens motor stang |
-| AIN2 | PD7 | Sens motor stang |
+| Semnal | Pin ATmega328P | Descriere |
+|---|---|---|
+| CH1 | PD2 | Direcție receptor RC |
+| CH2 | PD4 | Accelerație receptor RC |
+| PWMA | PD3 | PWM motor stâng |
+| AIN1 | PD5 | Sens motor stâng |
+| AIN2 | PD7 | Sens motor stâng |
 | PWMB | PD6 | PWM motor drept |
 | BIN1 | PD0 | Sens motor drept |
 | BIN2 | PD1 | Sens motor drept |
-| LED onboard | PB5 | Semnalizare |
+| LED onboard | PB5 | Semnalizare stare |
 
-==== Functionalitati ====
+## Funcționalități
 
-  * citirea semnalelor PWM de la receptorul RC;
-  * controlul vitezei motoarelor prin PWM;
-  * controlul sensului de rotatie prin TB6612FNG;
-  * mers inainte, inapoi, stanga si dreapta;
-  * oprirea motoarelor daca semnalul RC lipseste;
-  * semnalizare prin LED-ul onboard.
+- citirea semnalelor PWM de la receptorul RC;
+- controlul vitezei motoarelor prin PWM;
+- controlul sensului de rotație prin TB6612FNG;
+- mers înainte, înapoi, stânga și dreapta;
+- oprirea motoarelor dacă semnalul RC lipsește;
+- semnalizare prin LED-ul onboard.
 
-==== Alimentare ====
+## Alimentare
 
-Partea logica functioneaza la 5V:
+Partea logică funcționează la **5V**:
 
-  * ATmega328P Xplained Mini
-  * receptor RC
-  * VCC si STBY de la TB6612FNG
+- ATmega328P Xplained Mini;
+- receptor RC;
+- `VCC` și `STBY` de la TB6612FNG.
 
 Motoarele sunt alimentate separat:
 
-  * +6V acumulator NiMH -> VM TB6612FNG
-  * - acumulator NiMH -> GND comun
-
-Este important ca toate modulele sa aiba GND comun.
-
-==== Observatii ====
-
-Codul nu foloseste Serial Monitor, deoarece pinii PD0 si PD1 sunt folositi pentru controlul motorului drept.
+```text
++6V acumulator NiMH -> VM TB6612FNG
+- acumulator NiMH  -> GND comun
